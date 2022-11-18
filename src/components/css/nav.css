@@ -1,0 +1,9 @@
+.navcom ul li:hover 
+{
+    border-bottom: 3px solid rgb(10, 67, 199);
+}
+#hmdet
+{
+    border: 2px dotted gray;
+    border-radius: 5px;
+}

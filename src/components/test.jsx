@@ -10,10 +10,11 @@ const Api1 = () => {
     var [pro,updatePro] = useState({id:'',first_name:'',last_name:'',branch:'',email:''})
 
     useEffect(
-        function () {
+        function() {
             async function getData() {
                 var res = await axios.get('https://restp.herokuapp.com/student/')
-                // console.log(res.data)
+                console.log(res.data);
+                console.log("hello");
                 updateData(res.data);
             }
             getData();
@@ -28,7 +29,8 @@ const Api1 = () => {
     return (
         <>
 
-            <h1 className='text-center'>Admin Portal</h1>
+            <h1 className='text-center text-primary pt-2'><i class="bi bi-person-circle"></i> Admin Portal</h1>
+            <div className="container">
             <form onSubmit={(e)=>{
                 e.preventDefault();
                 if(pro.id==='')
@@ -40,7 +42,7 @@ const Api1 = () => {
                             last_name:pro.last_name,
                             email:pro.email,
                             branch:pro.branch})
-                            if(res.status===200)
+                            if(res.status===201)
                             {
                                 alert('Student details add succesfully')
                             }
@@ -73,18 +75,21 @@ const Api1 = () => {
                 async function search()
                 {
                     var res=await axios.get(`https://restp.herokuapp.com/student/${pid}/`);
-                    updateData(res.data);
+                    updateData(res.data); 
                 }
                 search();
             }}>Search</button>
+            </div>
 
             {data.map((v) => {
                 return (
                     <>
-                        <div class="card" key={v.id} style={{ float:"inline" }}>
+                        <div class="card" style={{ float:"inline" }}>
                             <div class="card-header bg-primary text-white form-control-lg">
                                 Name : {v.first_name} {v.last_name}
-                                <button className='btn btn-success mr-5 float-end'>Update</button>
+                                <button className='btn btn-success mr-5 float-end' onClick={()=>{
+                                    updatePro(v);
+                                }}>Update</button>
                                 <button className='btn btn-danger float-end' onClick={()=>{
                                     async function delPro(){
                                         var res = await axios.delete(`https://restp.herokuapp.com/student/${v.id}`) 
@@ -97,7 +102,7 @@ const Api1 = () => {
                                 }}>Delete</button>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Branch : {v.branch}</li>
+                                <li key={v.id} class="list-group-item">Branch : {v.branch}</li>
                                 <li class="list-group-item">Email : {v.email}</li>
                                 <li class="list-group-item">Id : {v.id}</li>
                             </ul>

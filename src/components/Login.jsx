@@ -9,10 +9,8 @@ const Login = () => {
         e.preventDefault();
         if(uid==="admin"&&pwd==='1234')
         {
-            navigate('/api')
-            alert("Login Succesfully");
-
-            
+            navigate('/login/Api2')
+            alert("Login Succesfully");            
         }
         else
         {
